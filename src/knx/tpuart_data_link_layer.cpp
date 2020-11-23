@@ -383,15 +383,20 @@ bool TpUartDataLinkLayer::sendFrame(CemiFrame& frame)
 
 bool TpUartDataLinkLayer::resetChip()
 {
+    println("TpUartDataLinkLayer.resetChip() - start");
     uint8_t cmd = U_RESET_REQ;
     _platform.writeUart(cmd);
     _waitConfirmStartTime = millis();
     while (true)
     {
+        delay(100);
         int resp = _platform.readUart();
+        print("TpUartDataLinkLayer::resetChip: ");
+        println(resp);
         if (resp == U_RESET_IND)
             return true;
-        else if (millis() - _waitConfirmStartTime > RESET_TIMEOUT)
+        // else if (millis() - _waitConfirmStartTime > RESET_TIMEOUT)
+        else if (millis() - _waitConfirmStartTime > 1000)
             return false;
     }
 }
@@ -438,6 +443,8 @@ void TpUartDataLinkLayer::enabled(bool value)
 {
     if (value && !_enabled)
     {
+        println("TpUartDataLinkLayer::enabled()");
+
         _platform.setupUart();
 
         if (resetChip())

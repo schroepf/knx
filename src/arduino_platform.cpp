@@ -38,11 +38,12 @@ HardwareSerial* ArduinoPlatform::knxUart()
 
 void ArduinoPlatform::setupUart()
 {
+    println("ArduinoPlatform - setupUart() start");
     _knxSerial->begin(19200, SERIAL_8E1);
-    while (!_knxSerial) 
+    while (!_knxSerial)
         ;
+    println("ArduinoPlatform - setupUart() - knxSerial is available");
 }
-
 
 void ArduinoPlatform::closeUart()
 {

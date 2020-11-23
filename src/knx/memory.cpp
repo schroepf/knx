@@ -3,7 +3,8 @@
 #include "bits.h"
 
 #ifndef KNX_FLASH_SIZE
-# define KNX_FLASH_SIZE 8192
+//#define KNX_FLASH_SIZE 8192
+#define KNX_FLASH_SIZE 1024
 #endif
 
 Memory::Memory(Platform& platform, DeviceObject& deviceObject)
@@ -17,9 +18,11 @@ void Memory::readMemory()
     if (_data != nullptr)
         return;
 
+    println("readMemory - after nullptr");
     uint16_t flashSize = KNX_FLASH_SIZE;
     _data = _platform.getEepromBuffer(flashSize);
 
+    println("readMemory - after getEepromBuffer");
     printHex("RESTORED ", _data, _metadataSize);
 
     uint16_t metadataBlockSize = alignToPageSize(_metadataSize);
