@@ -12,11 +12,13 @@
 #define GPIO_GDO0_PIN 24 // GPIO 24 (GPIO_GEN5) -> WiringPi: 5  -> Pin number on header: 18
 #endif
 
+// MASK_VERSION: Prefer to set with build_flags =-DMASK_VERSION=0x07B0...
+
 // Normal devices
 // TP1: 0x07B0
 // RF: 0x27B0
 // IP: 0x57B0
-#define MASK_VERSION 0x07B0
+//#define MASK_VERSION 0x07B0
 //#define MASK_VERSION 0x27B0
 //#define MASK_VERSION 0x57B0
 
@@ -62,6 +64,5 @@
 #endif
 
 #if !defined(MASK_VERSION)
-#error MASK_VERSION must be defined! See config.j for possible values!
+#error MASK_VERSION must be defined! See config.h for possible values!
 #endif
-
